@@ -39,7 +39,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="HookBase.cs" />
+    <Compile Include="KeyboardHook.cs" />
+    <Compile Include="HookException.cs" />
+    <Compile Include="MouseHook.cs" />
+    <Compile Include="Natives\HARDWAREINPUT.cs" />
+    <Compile Include="Natives\INPUT.cs" />
+    <Compile Include="Natives\INPUTTYPE.cs" />
+    <Compile Include="Natives\KBDLLHOOKSTRUCT.cs" />
+    <Compile Include="Natives\KEYBDINPUT.cs" />
+    <Compile Include="Natives\KEYEVENTF.cs" />
+    <Compile Include="Natives\LLKHF.cs" />
+    <Compile Include="Natives\LLMHF.cs" />
+    <Compile Include="Natives\MOUSEDATA.cs" />
+    <Compile Include="Natives\MOUSEEVENTF.cs" />
+    <Compile Include="Natives\MOUSEINPUT.cs" />
+    <Compile Include="Natives\MSLLHOOKSTRUCT.cs" />
+    <Compile Include="Natives\POINT.cs" />
+    <Compile Include="Natives\VK.cs" />
+    <Compile Include="Natives\WH.cs" />
+    <Compile Include="Natives\WM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
