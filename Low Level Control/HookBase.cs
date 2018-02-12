@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
+using Low_Level_Control.Natives;
 
 namespace Low_Level_Control
 {
@@ -8,31 +9,34 @@ namespace Low_Level_Control
     {
         [DllImport("user32.dll", SetLastError = true)]
         protected static extern IntPtr SetWindowsHookEx(int idHook, HookProc lpfn, IntPtr hMod, uint dwThreadId);
+
         [DllImport("user32.dll")]
         protected static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
+
         [DllImport("user32.dll", SetLastError = true)]
         protected static extern bool UnhookWindowsHookEx(IntPtr hhk);
+
         [DllImport("kernel32.dll", SetLastError = true)]
         protected static extern IntPtr GetModuleHandle(string lpModuleName);
 
         public delegate IntPtr HookProc(int nCode, IntPtr wParam, IntPtr lParam);
+
         public event HookProc NativeHookProcEvent;
         public bool hookInstalled { get; private set; } = false;
 
         private HookProc hookProcDelegate = null;
         private IntPtr hookHandle = IntPtr.Zero;
         private int hookID = 0;
-        private String hookType = "";
+        private String hookType => ((WH)hookID).ToString();
 
         /*protected String getExceptionMessage(String msg)
         {
             return HookType + " hook: " + msg;
         }*/
 
-        public HookBase(int hookID, String hookType)
+        public HookBase(int hookID)
         {
             this.hookID = hookID;
-            this.hookType = hookType;
         }
 
         public void InstallGlobalHook()
@@ -54,10 +58,19 @@ namespace Low_Level_Control
             if (nCode >= 0)
             {
                 if (NativeHookProcEvent != null)
+                {
                     if (NativeHookProcEvent(nCode, wParam, lParam) == (IntPtr)(-1))
                         return (IntPtr)(-1);
+                }
+                if (CustomHookProc(nCode, wParam, lParam) == (IntPtr)(-1))
+                    return (IntPtr)(-1);
             }
             return CallNextHookEx(hookHandle, nCode, wParam, lParam);
+        }
+
+        protected virtual IntPtr CustomHookProc(int nCode, IntPtr wParam, IntPtr lParam)
+        {
+            return IntPtr.Zero;
         }
 
         public void UninstallGlobalKeyboardHook()
@@ -70,5 +83,12 @@ namespace Low_Level_Control
             hookHandle = IntPtr.Zero;
             hookProcDelegate = null;
         }
+
+        public static int LowWord(int num)
+        { return num & 0x0000FFFF; }
+
+        //Assume it won't be negative.
+        public static int HighWord(int num)
+        { return num >> 16; }
     }
 }

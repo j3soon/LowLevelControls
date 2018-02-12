@@ -46,7 +46,7 @@ namespace KeyLoggerSample
                         Console.WriteLine($"Mouse Move to ({ms.pt.x}, {ms.pt.y})");
                         break;
                     case WM.MOUSEWHEEL:
-                        Console.WriteLine($"Mouse Wheel with data {ms.mouseData.HighWord()}");
+                        Console.WriteLine($"Mouse Wheel with data {HookBase.HighWord(ms.mouseData)} on ({ms.pt.x}, {ms.pt.y})");
                         break;
                     case WM.MOUSEHWHEEL:
                         //Not implemented yet.
@@ -64,16 +64,16 @@ namespace KeyLoggerSample
                         Console.WriteLine(Keys.MButton + $" Up on ({ms.pt.x}, {ms.pt.y})");
                         break;
                     case WM.XBUTTONDOWN:
-                        if (ms.mouseData.HighWord() == (int)MOUSEDATA.XBUTTON1)
+                        if (HookBase.HighWord(ms.mouseData) == (int)MOUSEDATA.XBUTTON1)
                             Console.Write(Keys.XButton1);
-                        else if (ms.mouseData.HighWord() == (int)MOUSEDATA.XBUTTON2)
+                        else if (HookBase.HighWord(ms.mouseData) == (int)MOUSEDATA.XBUTTON2)
                             Console.Write(Keys.XButton2);
                         Console.WriteLine($" Down on ({ms.pt.x}, {ms.pt.y})");
                         break;
                     case WM.XBUTTONUP:
-                        if (ms.mouseData.HighWord() == (int)MOUSEDATA.XBUTTON1)
+                        if (HookBase.HighWord(ms.mouseData) == (int)MOUSEDATA.XBUTTON1)
                             Console.Write(Keys.XButton1);
-                        else if (ms.mouseData.HighWord() == (int)MOUSEDATA.XBUTTON2)
+                        else if (HookBase.HighWord(ms.mouseData) == (int)MOUSEDATA.XBUTTON2)
                             Console.Write(Keys.XButton2);
                         Console.WriteLine($" Up on ({ms.pt.x}, {ms.pt.y})");
                         break;
@@ -85,7 +85,7 @@ namespace KeyLoggerSample
             for (;;)
             {
                 Thread.Sleep(1);
-                System.Windows.Forms.Application.DoEvents();
+                Application.DoEvents();
             }
         }
     }
