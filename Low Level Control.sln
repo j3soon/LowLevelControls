@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Low Level Control", "Low Le
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyLoggerSample", "KeyLoggerSample\KeyLoggerSample.csproj", "{9AD3BF5F-486F-4589-AD4B-76A1B8F87E74}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyLoggerSample2", "KeyLoggerSample2\KeyLoggerSample2.csproj", "{91577260-F14B-44E7-8C80-F4ADF4B08C36}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{9AD3BF5F-486F-4589-AD4B-76A1B8F87E74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9AD3BF5F-486F-4589-AD4B-76A1B8F87E74}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9AD3BF5F-486F-4589-AD4B-76A1B8F87E74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91577260-F14B-44E7-8C80-F4ADF4B08C36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91577260-F14B-44E7-8C80-F4ADF4B08C36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91577260-F14B-44E7-8C80-F4ADF4B08C36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91577260-F14B-44E7-8C80-F4ADF4B08C36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

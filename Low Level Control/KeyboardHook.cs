@@ -6,9 +6,13 @@ namespace Low_Level_Control
 {
     public class KeyboardHook : HookBase
     {
+        [DllImport("user32.dll")]
+        protected static extern short GetAsyncKeyState(int vKey);
+
         //Return whether the key is handled.
         public delegate bool KeyboardEventHandler(KeyboardHook sender, uint vkCode);
         public event KeyboardEventHandler KeyDownEvent;
+        public event KeyboardEventHandler KeyPressEvent;
         public event KeyboardEventHandler KeyUpEvent;
 
         public KeyboardHook() : base((int)WH.KEYBOARD_LL) { }
@@ -21,7 +25,9 @@ namespace Low_Level_Control
             {
                 case WM.KEYDOWN:
                 case WM.SYSKEYDOWN:
-                    if (KeyDownEvent?.Invoke(this, kbd.vkCode) == true)
+                    if (GetAsyncKeyState((int)kbd.vkCode) >= 0 && KeyDownEvent?.Invoke(this, kbd.vkCode) == true)
+                        return (IntPtr)(-1);
+                    if (KeyPressEvent?.Invoke(this, kbd.vkCode) == true)
                         return (IntPtr)(-1);
                     break;
                 case WM.KEYUP:

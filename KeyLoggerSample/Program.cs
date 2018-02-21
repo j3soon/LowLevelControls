@@ -12,7 +12,7 @@ namespace KeyLoggerSample
         static void Main(string[] args)
         {
             KeyboardHook kbdHook = new KeyboardHook();
-            kbdHook.NativeHookProcEvent += delegate (int nCode, IntPtr wParam, IntPtr lParam)
+            kbdHook.NativeHookProcEvent += (nCode, wParam, lParam) =>
             {
                 KBDLLHOOKSTRUCT kbd =
                     (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lParam, typeof(KBDLLHOOKSTRUCT));
@@ -30,7 +30,7 @@ namespace KeyLoggerSample
                 return IntPtr.Zero;
             };
             MouseHook msHook = new MouseHook();
-            msHook.NativeHookProcEvent += delegate (int nCode, IntPtr wParam, IntPtr lParam)
+            msHook.NativeHookProcEvent += (nCode, wParam, lParam) =>
             {
                 MSLLHOOKSTRUCT ms =
                     (MSLLHOOKSTRUCT)Marshal.PtrToStructure(lParam, typeof(MSLLHOOKSTRUCT));
