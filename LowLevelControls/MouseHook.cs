@@ -7,7 +7,7 @@ namespace LowLevelControls
     public class MouseHook : HookBase
     {
         //Return whether the key is handled.
-        public delegate bool MouseEventHandler(MouseHook sender, uint vkCode, int x, int y, int delta);
+        public delegate bool MouseEventHandler(MouseHook sender, uint vkCode, int x, int y, int delta, bool injected);
         public event MouseEventHandler MouseDownEvent;
         public event MouseEventHandler MouseUpEvent;
         public event MouseEventHandler MouseMoveEvent;
@@ -19,64 +19,65 @@ namespace LowLevelControls
         {
             MSLLHOOKSTRUCT ms =
                 (MSLLHOOKSTRUCT)Marshal.PtrToStructure(lParam, typeof(MSLLHOOKSTRUCT));
+            bool injected = (ms.flags & (uint)LLMHF.INJECTED) != 0;
             switch ((WM)wParam)
             {
                 case WM.LBUTTONDOWN:
-                    if (MouseDownEvent?.Invoke(this, (uint)VK.LBUTTON, ms.pt.x, ms.pt.y, 0) == true)
+                    if (MouseDownEvent?.Invoke(this, (uint)VK.LBUTTON, ms.pt.x, ms.pt.y, 0, injected) == true)
                         return (IntPtr)(-1);
                     break;
                 case WM.LBUTTONUP:
-                    if (MouseUpEvent?.Invoke(this, (uint)VK.LBUTTON, ms.pt.x, ms.pt.y, 0) == true)
+                    if (MouseUpEvent?.Invoke(this, (uint)VK.LBUTTON, ms.pt.x, ms.pt.y, 0, injected) == true)
                         return (IntPtr)(-1);
                     break;
                 case WM.MOUSEMOVE:
-                    if (MouseMoveEvent?.Invoke(this, 0, ms.pt.x, ms.pt.y, 0) == true)
+                    if (MouseMoveEvent?.Invoke(this, 0, ms.pt.x, ms.pt.y, 0, injected) == true)
                         return (IntPtr) (-1);
                     break;
                 case WM.MOUSEWHEEL:
-                    if (MouseWheelEvent?.Invoke(this, 0, ms.pt.x, ms.pt.y, HighWord(ms.mouseData)) == true)
+                    if (MouseWheelEvent?.Invoke(this, 0, ms.pt.x, ms.pt.y, HighWord(ms.mouseData), injected) == true)
                         return (IntPtr)(-1);
                     break;
                 case WM.MOUSEHWHEEL:
                     //Not implemented yet.
                     break;
                 case WM.RBUTTONDOWN:
-                    if (MouseDownEvent?.Invoke(this, (uint)VK.RBUTTON, ms.pt.x, ms.pt.y, 0) == true)
+                    if (MouseDownEvent?.Invoke(this, (uint)VK.RBUTTON, ms.pt.x, ms.pt.y, 0, injected) == true)
                         return (IntPtr)(-1);
                     break;
                 case WM.RBUTTONUP:
-                    if (MouseUpEvent?.Invoke(this, (uint)VK.RBUTTON, ms.pt.x, ms.pt.y, 0) == true)
+                    if (MouseUpEvent?.Invoke(this, (uint)VK.RBUTTON, ms.pt.x, ms.pt.y, 0, injected) == true)
                         return (IntPtr)(-1);
                     break;
                 case WM.MBUTTONDOWN:
-                    if (MouseDownEvent?.Invoke(this, (uint)VK.MBUTTON, ms.pt.x, ms.pt.y, 0) == true)
+                    if (MouseDownEvent?.Invoke(this, (uint)VK.MBUTTON, ms.pt.x, ms.pt.y, 0, injected) == true)
                         return (IntPtr)(-1);
                     break;
                 case WM.MBUTTONUP:
-                    if (MouseUpEvent?.Invoke(this, (uint)VK.MBUTTON, ms.pt.x, ms.pt.y, 0) == true)
+                    if (MouseUpEvent?.Invoke(this, (uint)VK.MBUTTON, ms.pt.x, ms.pt.y, 0, injected) == true)
                         return (IntPtr)(-1);
                     break;
                 case WM.XBUTTONDOWN:
                     if (HighWord(ms.mouseData) == (int) MOUSEDATA.XBUTTON1)
                     {
-                        if (MouseDownEvent?.Invoke(this, (uint)VK.XBUTTON1, ms.pt.x, ms.pt.y, 0) == true)
+                        if (MouseDownEvent?.Invoke(this, (uint)VK.XBUTTON1, ms.pt.x, ms.pt.y, 0, injected) == true)
                             return (IntPtr)(-1);
                     }
                     else if (HighWord(ms.mouseData) == (int) MOUSEDATA.XBUTTON2)
                     {
-                        if (MouseDownEvent?.Invoke(this, (uint)VK.XBUTTON2, ms.pt.x, ms.pt.y, 0) == true)
+                        if (MouseDownEvent?.Invoke(this, (uint)VK.XBUTTON2, ms.pt.x, ms.pt.y, 0, injected) == true)
                             return (IntPtr)(-1);
                     }
                     break;
                 case WM.XBUTTONUP:
                     if (HighWord(ms.mouseData) == (int)MOUSEDATA.XBUTTON1)
                     {
-                        if (MouseUpEvent?.Invoke(this, (uint)VK.XBUTTON1, ms.pt.x, ms.pt.y, 0) == true)
+                        if (MouseUpEvent?.Invoke(this, (uint)VK.XBUTTON1, ms.pt.x, ms.pt.y, 0, injected) == true)
                             return (IntPtr)(-1);
                     }
                     else if (HighWord(ms.mouseData) == (int)MOUSEDATA.XBUTTON2)
                     {
-                        if (MouseUpEvent?.Invoke(this, (uint)VK.XBUTTON2, ms.pt.x, ms.pt.y, 0) == true)
+                        if (MouseUpEvent?.Invoke(this, (uint)VK.XBUTTON2, ms.pt.x, ms.pt.y, 0, injected) == true)
                             return (IntPtr)(-1);
                     }
                     break;

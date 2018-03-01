@@ -11,40 +11,40 @@ namespace LowLevelControls.Sample2
 
         static void Main(string[] args)
         {
-            kbdHook.KeyDownEvent += (sender, vkCode) =>
+            kbdHook.KeyDownEvent += (sender, vkCode, injected) =>
             {
-                Console.WriteLine((Keys)vkCode + " Down");
+                Console.WriteLine((Keys)vkCode + " Down" + (injected ? " (Injected)" : ""));
                 return false;
             };
-            kbdHook.KeyPressEvent += (sender, vkCode) =>
+            kbdHook.KeyPressEvent += (sender, vkCode, injected) =>
             {
-                Console.WriteLine((Keys)vkCode + " Press");
+                Console.WriteLine((Keys)vkCode + " Press" + (injected ? " (Injected)" : ""));
                 return false;
             };
-            kbdHook.KeyUpEvent += (sender, vkCode) =>
+            kbdHook.KeyUpEvent += (sender, vkCode, injected) =>
             {
-                Console.WriteLine((Keys)vkCode + " Up");
+                Console.WriteLine((Keys)vkCode + " Up" + (injected ? " (Injected)" : ""));
                 return false;
             };
 
-            msHook.MouseDownEvent += (sender, vkCode, x, y, delta) =>
+            msHook.MouseDownEvent += (sender, vkCode, x, y, delta, injected) =>
             {
-                Console.WriteLine((Keys)vkCode + $" Down on ({x}, {y})");
+                Console.WriteLine((Keys)vkCode + $" Down on ({x}, {y})" + (injected ? " (Injected)" : ""));
                 return false;
             };
-            msHook.MouseUpEvent += (sender, vkCode, x, y, delta) =>
+            msHook.MouseUpEvent += (sender, vkCode, x, y, delta, injected) =>
             {
-                Console.WriteLine((Keys)vkCode + $" Up on ({x}, {y})");
+                Console.WriteLine((Keys)vkCode + $" Up on ({x}, {y})" + (injected ? " (Injected)" : ""));
                 return false;
             };
-            msHook.MouseMoveEvent += (sender, vkCode, x, y, delta) =>
+            msHook.MouseMoveEvent += (sender, vkCode, x, y, delta, injected) =>
             {
-                Console.WriteLine($"Mouse Move to ({x}, {y})");
+                Console.WriteLine($"Mouse Move to ({x}, {y})" + (injected ? " (Injected)" : ""));
                 return false;
             };
-            msHook.MouseWheelEvent += (sender, vkCode, x, y, delta) =>
+            msHook.MouseWheelEvent += (sender, vkCode, x, y, delta, injected) =>
             {
-                Console.WriteLine($"Mouse Wheel with data {delta} on ({x}, {y})");
+                Console.WriteLine($"Mouse Wheel with data {delta} on ({x}, {y})" + (injected ? " (Injected)" : ""));
                 return false;
             };
             AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
