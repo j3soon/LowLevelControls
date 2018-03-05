@@ -43,7 +43,9 @@
     <Compile Include="HookBase.cs" />
     <Compile Include="HookException.cs" />
     <Compile Include="KeyboardHook.cs" />
+    <Compile Include="Keyboard.cs" />
     <Compile Include="MouseHook.cs" />
+    <Compile Include="Mouse.cs" />
     <Compile Include="Natives\HARDWAREINPUT.cs" />
     <Compile Include="Natives\INPUT.cs" />
     <Compile Include="Natives\INPUTTYPE.cs" />
