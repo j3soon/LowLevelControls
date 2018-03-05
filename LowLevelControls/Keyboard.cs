@@ -17,12 +17,15 @@ namespace LowLevelControls
         [DllImport("user32.dll")]
         static extern short GetKeyState(int nVirtKey);
 
-        private static KEYBDINPUT getKeybdInput(int key, bool? down)
+        private static INPUT getInput(int key, bool? down)
         {
-            KEYBDINPUT ki;
+            INPUT input = new INPUT
+            {
+                type = INPUTTYPE.INPUT_KEYBOARD,
+            };
             if (down == null)
             {
-                ki = new KEYBDINPUT
+                input.ki = new KEYBDINPUT
                 {
                     wVk = 0,
                     wScan = (ushort)key,
@@ -30,9 +33,9 @@ namespace LowLevelControls
                     time = 0,
                     dwExtraInfo = IntPtr.Zero
                 };
-                return ki;
+                return input;
             }
-            ki = new KEYBDINPUT
+            input.ki = new KEYBDINPUT
             {
                 wVk = (ushort)key,
                 wScan = 0,
@@ -40,34 +43,26 @@ namespace LowLevelControls
                 time = 0,
                 dwExtraInfo = IntPtr.Zero
             };
-            return ki;
+            return input;
         }
 
         public static void SendKey(int vKey)
         {
-            INPUT[] inputs = new INPUT[2];
-            inputs[0].type = INPUTTYPE.INPUT_KEYBOARD;
-            inputs[0].ki = getKeybdInput(vKey, true);
-            inputs[1].type = INPUTTYPE.INPUT_KEYBOARD;
-            inputs[1].ki = getKeybdInput(vKey, false);
+            INPUT[] inputs = { getInput(vKey, true), getInput(vKey, false) };
             if (SendInput(2, inputs, Marshal.SizeOf(typeof(INPUT))) == 0)
                 throw new Win32Exception(Marshal.GetLastWin32Error());
         }
 
         public static void SendKeyDown(int vKey)
         {
-            INPUT[] inputs = new INPUT[1];
-            inputs[0].type = INPUTTYPE.INPUT_KEYBOARD;
-            inputs[0].ki = getKeybdInput(vKey, true);
+            INPUT[] inputs = { getInput(vKey, true) };
             if (SendInput(1, inputs, Marshal.SizeOf(typeof(INPUT))) == 0)
                 throw new Win32Exception(Marshal.GetLastWin32Error());
         }
 
         public static void SendKeyUp(int vKey)
         {
-            INPUT[] inputs = new INPUT[1];
-            inputs[0].type = INPUTTYPE.INPUT_KEYBOARD;
-            inputs[0].ki = getKeybdInput(vKey, false);
+            INPUT[] inputs = { getInput(vKey, false) };
             if (SendInput(1, inputs, Marshal.SizeOf(typeof(INPUT))) == 0)
                 throw new Win32Exception(Marshal.GetLastWin32Error());
         }
@@ -84,9 +79,7 @@ namespace LowLevelControls
 
         public static void SendChar(char c)
         {
-            INPUT[] inputs = new INPUT[1];
-            inputs[0].type = INPUTTYPE.INPUT_KEYBOARD;
-            inputs[0].ki = getKeybdInput(c, null);
+            INPUT[] inputs = { getInput(c, null) };
             if (SendInput(1, inputs, Marshal.SizeOf(typeof(INPUT))) == 0)
                 throw new Win32Exception(Marshal.GetLastWin32Error());
         }
@@ -96,10 +89,7 @@ namespace LowLevelControls
             int len = text.Length;
             INPUT[] inputs = new INPUT[len];
             for (int i = 0; i < len; i++)
-            {
-                inputs[i].type = INPUTTYPE.INPUT_KEYBOARD;
-                inputs[i].ki = getKeybdInput(text[i], null);
-            }
+                inputs[i] = getInput(text[i], null);
             if (SendInput((uint)len, inputs, Marshal.SizeOf(typeof(INPUT))) == 0)
                 throw new Win32Exception(Marshal.GetLastWin32Error());
         }
