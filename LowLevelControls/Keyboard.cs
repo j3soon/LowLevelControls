@@ -17,27 +17,39 @@ namespace LowLevelControls
         [DllImport("user32.dll")]
         static extern short GetKeyState(int nVirtKey);
 
+        private static KEYBDINPUT getKeybdInput(int key, bool? down)
+        {
+            KEYBDINPUT ki;
+            if (down == null)
+            {
+                ki = new KEYBDINPUT
+                {
+                    wVk = 0,
+                    wScan = (ushort)key,
+                    dwFlags = (uint)KEYEVENTF.UNICODE,
+                    time = 0,
+                    dwExtraInfo = IntPtr.Zero
+                };
+                return ki;
+            }
+            ki = new KEYBDINPUT
+            {
+                wVk = (ushort)key,
+                wScan = 0,
+                dwFlags = (uint)((bool)down ? KEYEVENTF.KEYDOWN : KEYEVENTF.KEYUP),
+                time = 0,
+                dwExtraInfo = IntPtr.Zero
+            };
+            return ki;
+        }
+
         public static void SendKey(int vKey)
         {
             INPUT[] inputs = new INPUT[2];
             inputs[0].type = INPUTTYPE.INPUT_KEYBOARD;
-            inputs[0].ki = new KEYBDINPUT
-            {
-                wVk = (ushort)vKey,
-                wScan = 0,
-                dwFlags = (uint)KEYEVENTF.KEYDOWN,
-                time = 0,
-                dwExtraInfo = IntPtr.Zero
-            };
+            inputs[0].ki = getKeybdInput(vKey, true);
             inputs[1].type = INPUTTYPE.INPUT_KEYBOARD;
-            inputs[1].ki = new KEYBDINPUT
-            {
-                wVk = (ushort)vKey,
-                wScan = 0,
-                dwFlags = (uint)KEYEVENTF.KEYUP,
-                time = 0,
-                dwExtraInfo = IntPtr.Zero
-            };
+            inputs[1].ki = getKeybdInput(vKey, false);
             if (SendInput(2, inputs, Marshal.SizeOf(typeof(INPUT))) == 0)
                 throw new Win32Exception(Marshal.GetLastWin32Error());
         }
@@ -46,14 +58,7 @@ namespace LowLevelControls
         {
             INPUT[] inputs = new INPUT[1];
             inputs[0].type = INPUTTYPE.INPUT_KEYBOARD;
-            inputs[0].ki = new KEYBDINPUT
-            {
-                wVk = (ushort)vKey,
-                wScan = 0,
-                dwFlags = (uint)KEYEVENTF.KEYDOWN,
-                time = 0,
-                dwExtraInfo = IntPtr.Zero
-            };
+            inputs[0].ki = getKeybdInput(vKey, true);
             if (SendInput(1, inputs, Marshal.SizeOf(typeof(INPUT))) == 0)
                 throw new Win32Exception(Marshal.GetLastWin32Error());
         }
@@ -62,14 +67,7 @@ namespace LowLevelControls
         {
             INPUT[] inputs = new INPUT[1];
             inputs[0].type = INPUTTYPE.INPUT_KEYBOARD;
-            inputs[0].ki = new KEYBDINPUT
-            {
-                wVk = (ushort)vKey,
-                wScan = 0,
-                dwFlags = (uint)KEYEVENTF.KEYUP,
-                time = 0,
-                dwExtraInfo = IntPtr.Zero
-            };
+            inputs[0].ki = getKeybdInput(vKey, false);
             if (SendInput(1, inputs, Marshal.SizeOf(typeof(INPUT))) == 0)
                 throw new Win32Exception(Marshal.GetLastWin32Error());
         }
@@ -88,14 +86,7 @@ namespace LowLevelControls
         {
             INPUT[] inputs = new INPUT[1];
             inputs[0].type = INPUTTYPE.INPUT_KEYBOARD;
-            inputs[0].ki = new KEYBDINPUT
-            {
-                wVk = 0,
-                wScan = c,
-                dwFlags = (uint)KEYEVENTF.UNICODE,
-                time = 0,
-                dwExtraInfo = IntPtr.Zero
-            };
+            inputs[0].ki = getKeybdInput(c, null);
             if (SendInput(1, inputs, Marshal.SizeOf(typeof(INPUT))) == 0)
                 throw new Win32Exception(Marshal.GetLastWin32Error());
         }
@@ -107,14 +98,7 @@ namespace LowLevelControls
             for (int i = 0; i < len; i++)
             {
                 inputs[i].type = INPUTTYPE.INPUT_KEYBOARD;
-                inputs[i].ki = new KEYBDINPUT
-                {
-                    wVk = 0,
-                    wScan = text[i],
-                    dwFlags = (uint)KEYEVENTF.UNICODE,
-                    time = 0,
-                    dwExtraInfo = IntPtr.Zero
-                };
+                inputs[i].ki = getKeybdInput(text[i], null);
             }
             if (SendInput((uint)len, inputs, Marshal.SizeOf(typeof(INPUT))) == 0)
                 throw new Win32Exception(Marshal.GetLastWin32Error());
