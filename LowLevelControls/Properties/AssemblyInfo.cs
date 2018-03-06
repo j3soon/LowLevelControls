@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("LowLevelControls")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Helper class for mouse, keyboard and screen controls")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("j3soon")]
 [assembly: AssemblyProduct("LowLevelControls")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
