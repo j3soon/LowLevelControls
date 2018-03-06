@@ -28,5 +28,7 @@ namespace LowLevelControls.Natives
         XBUTTONDBLCLK = 0x020D,
         XBUTTONDOWN = 0x020B,
         XBUTTONUP = 0x020C,
+        //Others.
+        SYSCOMMAND = 0x0112,
     }
 }

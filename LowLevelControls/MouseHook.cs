@@ -12,6 +12,7 @@ namespace LowLevelControls
         public event MouseEventHandler MouseUpEvent;
         public event MouseEventHandler MouseMoveEvent;
         public event MouseEventHandler MouseWheelEvent;
+        public event MouseEventHandler MouseHWheelEvent;
 
         public MouseHook() : base((int)WH.MOUSE_LL) { }
 
@@ -39,7 +40,8 @@ namespace LowLevelControls
                         return (IntPtr)(-1);
                     break;
                 case WM.MOUSEHWHEEL:
-                    //Not implemented yet.
+                    if (MouseHWheelEvent?.Invoke(this, 0, ms.pt.x, ms.pt.y, HighWord(ms.mouseData), injected) == true)
+                        return (IntPtr)(-1);
                     break;
                 case WM.RBUTTONDOWN:
                     if (MouseDownEvent?.Invoke(this, (uint)VK.RBUTTON, ms.pt.x, ms.pt.y, 0, injected) == true)

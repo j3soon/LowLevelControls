@@ -59,10 +59,13 @@
     <Compile Include="Natives\MOUSEINPUT.cs" />
     <Compile Include="Natives\MSLLHOOKSTRUCT.cs" />
     <Compile Include="Natives\POINT.cs" />
+    <Compile Include="Natives\RECT.cs" />
+    <Compile Include="Natives\SM.cs" />
     <Compile Include="Natives\VK.cs" />
     <Compile Include="Natives\WH.cs" />
     <Compile Include="Natives\WM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Screen.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
