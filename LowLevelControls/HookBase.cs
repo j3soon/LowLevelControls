@@ -71,7 +71,7 @@ namespace LowLevelControls
             return IntPtr.Zero;
         }
 
-        public void UninstallGlobalKeyboardHook()
+        public void UninstallGlobalHook()
         {
             if (!hookInstalled)
                 throw new HookException(hookType + " hook has not been installed.");

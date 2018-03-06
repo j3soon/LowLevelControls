@@ -64,8 +64,8 @@ namespace LowLevelControls.Sample2
 
         private static void CurrentDomain_ProcessExit(object sender, EventArgs e)
         {
-            kbdHook.UninstallGlobalKeyboardHook();
-            msHook.UninstallGlobalKeyboardHook();
+            kbdHook.UninstallGlobalHook();
+            msHook.UninstallGlobalHook();
         }
     }
 }
