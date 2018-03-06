@@ -62,7 +62,7 @@ namespace LowLevelControls.Sample
                     Console.WriteLine($"Mouse Wheel with data {HookBase.HighWord(ms.mouseData)} on ({ms.pt.x}, {ms.pt.y})");
                     break;
                 case WM.MOUSEHWHEEL:
-                    //Not implemented yet.
+                    Console.WriteLine($"Mouse HWheel with data {HookBase.HighWord(ms.mouseData)} on ({ms.pt.x}, {ms.pt.y})");
                     break;
                 case WM.RBUTTONDOWN:
                     Console.WriteLine(Keys.RButton + $" Down on ({ms.pt.x}, {ms.pt.y})");

@@ -47,6 +47,11 @@ namespace LowLevelControls.Sample2
                 Console.WriteLine($"Mouse Wheel with data {delta} on ({x}, {y})" + (injected ? " (Injected)" : ""));
                 return false;
             };
+            msHook.MouseHWheelEvent += (sender, vkCode, x, y, delta, injected) =>
+            {
+                Console.WriteLine($"Mouse HWheel with data {delta} on ({x}, {y})" + (injected ? " (Injected)" : ""));
+                return false;
+            };
             AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
             kbdHook.InstallGlobalHook();
             msHook.InstallGlobalHook();
