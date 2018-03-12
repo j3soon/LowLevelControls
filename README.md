@@ -1,5 +1,5 @@
 # LowLevelControls
-Helper class for mouse, keyboard and screen controls 
+Helper class for mouse, keyboard and screen controls
 
 ## NuGet: https://www.nuget.org/packages/LowLevelControls/
 

@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## 1.0.0 - 2018-02-28
+## 1.0.0 - 2018-03-07
 ### Added
 - LowLevelControls
 - LowLevelControls.Sample
