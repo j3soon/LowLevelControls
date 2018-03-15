@@ -6,10 +6,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.1.0] - 2018-03-16
+### Added
+- LowLevelControls.Window
+
 ## 1.0.0 - 2018-03-07
 ### Added
 - LowLevelControls
 - LowLevelControls.Sample
 - LowLevelControls.Sample2
 
-[Unreleased]: https://github.com/j3soon/LowLevelControls/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/j3soon/LowLevelControls/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/j3soon/LowLevelControls/compare/v1.0.0...v1.1.0
