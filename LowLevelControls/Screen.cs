@@ -17,12 +17,6 @@ namespace LowLevelControls
         [DllImport("user32.dll", SetLastError = true)]
         static extern IntPtr SendMessage(IntPtr hWnd, UInt32 Msg, IntPtr wParam, IntPtr lParam);
 
-        [DllImport("user32.dll")]
-        static extern IntPtr GetForegroundWindow();
-
-        [DllImport("user32.dll", SetLastError = true)]
-        static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
-
         static IntPtr HWND_BROADCAST => new IntPtr(0xffff);
         static IntPtr SC_MONITORPOWER => new IntPtr(0xF170);
         static IntPtr MONITOR_ON => new IntPtr(-1);
@@ -56,15 +50,6 @@ namespace LowLevelControls
             };
             rect.right = GetSystemMetrics((int)SM.CXSCREEN) - rect.left;
             rect.bottom = GetSystemMetrics((int)SM.CYSCREEN) - rect.top;
-            return rect;
-        }
-
-        public static RECT GetForegroundWindowRect()
-        {
-            IntPtr handle = GetForegroundWindow();
-            RECT rect;
-            if (!GetWindowRect(handle, out rect))
-                throw new Win32Exception(Marshal.GetLastWin32Error());
             return rect;
         }
 
