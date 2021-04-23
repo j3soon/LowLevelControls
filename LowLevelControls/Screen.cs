@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -16,6 +17,9 @@ namespace LowLevelControls
 
         [DllImport("user32.dll", SetLastError = true)]
         static extern IntPtr SendMessage(IntPtr hWnd, UInt32 Msg, IntPtr wParam, IntPtr lParam);
+
+        [DllImport("gdi32.dll")]
+        static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
 
         static IntPtr HWND_BROADCAST => new IntPtr(0xffff);
         static IntPtr SC_MONITORPOWER => new IntPtr(0xF170);
@@ -48,9 +52,29 @@ namespace LowLevelControls
                 left = GetSystemMetrics((int)SM.XVIRTUALSCREEN),
                 top = GetSystemMetrics((int)SM.YVIRTUALSCREEN)
             };
-            rect.right = GetSystemMetrics((int)SM.CXSCREEN) - rect.left;
-            rect.bottom = GetSystemMetrics((int)SM.CYSCREEN) - rect.top;
+            rect.right = GetSystemMetrics((int)SM.CXSCREEN) + rect.left;
+            rect.bottom = GetSystemMetrics((int)SM.CYSCREEN) + rect.top;
             return rect;
+        }
+
+        public static RECT GetScaledVirtualScreenRect()
+        {
+            RECT rect = new RECT
+            {
+                left = GetSystemMetrics((int)SM.XVIRTUALSCREEN),
+                top = GetSystemMetrics((int)SM.YVIRTUALSCREEN)
+            };
+            rect.right = (int)(GetSystemMetrics((int)SM.CXSCREEN) * GetScreenScaling()) + rect.left;
+            rect.bottom = (int)(GetSystemMetrics((int)SM.CYSCREEN) * GetScreenScaling()) + rect.top;
+            return rect;
+        }
+        public static float GetScreenScaling()
+        {
+            Graphics g = Graphics.FromHwnd(IntPtr.Zero);
+            IntPtr desktop = g.GetHdc();
+            int LogicalScreenHeight = GetDeviceCaps(desktop, (int)DEVICECAP.VERTRES);
+            int PhysicalScreenHeight = GetDeviceCaps(desktop, (int)DEVICECAP.DESKTOPVERTRES);
+            return (float)PhysicalScreenHeight / (float)LogicalScreenHeight;
         }
 
         public static void SetMonitorOn()

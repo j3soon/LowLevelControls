@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,6 +47,7 @@
     <Compile Include="Keyboard.cs" />
     <Compile Include="MouseHook.cs" />
     <Compile Include="Mouse.cs" />
+    <Compile Include="Natives\DEVICECAP.cs" />
     <Compile Include="Natives\DWMWA.cs" />
     <Compile Include="Natives\HARDWAREINPUT.cs" />
     <Compile Include="Natives\INPUT.cs" />
