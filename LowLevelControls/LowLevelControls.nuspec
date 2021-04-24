@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/j3soon/LowLevelControls</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Add Window class</releaseNotes>
+    <releaseNotes>Support Screen scaling</releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>low-level mouse keyboard screen</tags>
   </metadata>
