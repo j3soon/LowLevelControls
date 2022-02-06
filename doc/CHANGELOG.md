@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.4.0] - 2022-02-06
+### Fixed
+- Ensure the alignment fix for x64 platform (issue #1)
+
 ## [1.3.0] - 2022-02-06
 ### Fixed
 - Fix alignment in x64 platform (issue #1) (LowLevelControls.Natives.INPUT)
@@ -26,7 +30,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - LowLevelControls.Sample
 - LowLevelControls.Sample2
 
-[Unreleased]: https://github.com/j3soon/LowLevelControls/compare/v1.3.0...HEAD
+[Unreleased]: https://github.com/j3soon/LowLevelControls/compare/v1.4.0...HEAD
+[1.4.0]: https://github.com/j3soon/LowLevelControls/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/j3soon/LowLevelControls/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/j3soon/LowLevelControls/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/j3soon/LowLevelControls/compare/v1.0.0...v1.1.0

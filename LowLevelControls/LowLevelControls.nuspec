@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/j3soon/LowLevelControls</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Fix SendInput bugs</releaseNotes>
+    <releaseNotes>Ensure the Fix of SendInput bugs</releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>low-level mouse keyboard screen</tags>
   </metadata>
