@@ -110,7 +110,8 @@ namespace LowLevelControls
             INPUT[] inputs = new INPUT[1];
             inputs[0] = getInput(vKey, null);
             setMouseInput(ref inputs[0].mkhi.mi, x, y);
-            if (SendInput(1, inputs, Marshal.SizeOf(typeof(INPUT))) == 0)
+            uint sent = SendInput(1, inputs, Marshal.SizeOf(typeof(INPUT)));
+            if (sent != 1)
                 throw new Win32Exception(Marshal.GetLastWin32Error());
         }
 
@@ -119,7 +120,8 @@ namespace LowLevelControls
             INPUT[] inputs = new INPUT[1];
             inputs[0] = getInput(vKey, true);
             setMouseInput(ref inputs[0].mkhi.mi, x, y);
-            if (SendInput(1, inputs, Marshal.SizeOf(typeof(INPUT))) == 0)
+            uint sent = SendInput(1, inputs, Marshal.SizeOf(typeof(INPUT)));
+            if (sent != 1)
                 throw new Win32Exception(Marshal.GetLastWin32Error());
         }
 
@@ -128,7 +130,8 @@ namespace LowLevelControls
             INPUT[] inputs = new INPUT[1];
             inputs[0] = getInput(vKey, false);
             setMouseInput(ref inputs[0].mkhi.mi, x, y);
-            if (SendInput(1, inputs, Marshal.SizeOf(typeof(INPUT))) == 0)
+            uint sent = SendInput(1, inputs, Marshal.SizeOf(typeof(INPUT)));
+            if (sent != 1)
                 throw new Win32Exception(Marshal.GetLastWin32Error());
         }
 
@@ -137,7 +140,8 @@ namespace LowLevelControls
             INPUT[] inputs = new INPUT[1];
             inputs[0] = getInput(0, false);
             setMouseInput(ref inputs[0].mkhi.mi, x, y);
-            if (SendInput(1, inputs, Marshal.SizeOf(typeof(INPUT))) == 0)
+            uint sent = SendInput(1, inputs, Marshal.SizeOf(typeof(INPUT)));
+            if (sent != 1)
                 throw new Win32Exception(Marshal.GetLastWin32Error());
         }
 
@@ -148,7 +152,8 @@ namespace LowLevelControls
             inputs[0].mkhi.mi.mouseData = delta;
             inputs[0].mkhi.mi.dwFlags = (uint)MOUSEEVENTF.WHEEL;
             setMouseInput(ref inputs[0].mkhi.mi, x, y);
-            if (SendInput(1, inputs, Marshal.SizeOf(typeof(INPUT))) == 0)
+            uint sent = SendInput(1, inputs, Marshal.SizeOf(typeof(INPUT)));
+            if (sent != 1)
                 throw new Win32Exception(Marshal.GetLastWin32Error());
         }
 
@@ -159,7 +164,8 @@ namespace LowLevelControls
             inputs[0].mkhi.mi.mouseData = delta;
             inputs[0].mkhi.mi.dwFlags = (uint)MOUSEEVENTF.HWHEEL;
             setMouseInput(ref inputs[0].mkhi.mi, x, y);
-            if (SendInput(1, inputs, Marshal.SizeOf(typeof(INPUT))) == 0)
+            uint sent = SendInput(1, inputs, Marshal.SizeOf(typeof(INPUT)));
+            if (sent != 1)
                 throw new Win32Exception(Marshal.GetLastWin32Error());
         }
 

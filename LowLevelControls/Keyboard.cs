@@ -49,21 +49,24 @@ namespace LowLevelControls
         public static void SendKey(int vKey)
         {
             INPUT[] inputs = { getInput(vKey, true), getInput(vKey, false) };
-            if (SendInput(2, inputs, Marshal.SizeOf(typeof(INPUT))) == 0)
-                throw new Win32Exception(Marshal.GetLastWin32Error());
+            uint sent = SendInput(2, inputs, Marshal.SizeOf(typeof(INPUT)));
+            if (sent != 2)
+                throw new Win32Exception(Marshal.GetLastWin32Error(), sent.ToString());
         }
 
         public static void SendKeyDown(int vKey)
         {
             INPUT[] inputs = { getInput(vKey, true) };
-            if (SendInput(1, inputs, Marshal.SizeOf(typeof(INPUT))) == 0)
+            uint sent = SendInput(1, inputs, Marshal.SizeOf(typeof(INPUT)));
+            if (sent != 1)
                 throw new Win32Exception(Marshal.GetLastWin32Error());
         }
 
         public static void SendKeyUp(int vKey)
         {
             INPUT[] inputs = { getInput(vKey, false) };
-            if (SendInput(1, inputs, Marshal.SizeOf(typeof(INPUT))) == 0)
+            uint sent = SendInput(1, inputs, Marshal.SizeOf(typeof(INPUT)));
+            if (sent != 1)
                 throw new Win32Exception(Marshal.GetLastWin32Error());
         }
 
@@ -80,7 +83,8 @@ namespace LowLevelControls
         public static void SendChar(char c)
         {
             INPUT[] inputs = { getInput(c, true, true), getInput(c, false, true) };
-            if (SendInput(2, inputs, Marshal.SizeOf(typeof(INPUT))) == 0)
+            uint sent = SendInput(2, inputs, Marshal.SizeOf(typeof(INPUT)));
+            if (sent != 2)
                 throw new Win32Exception(Marshal.GetLastWin32Error());
         }
 
@@ -93,7 +97,8 @@ namespace LowLevelControls
                 inputs[2*i] = getInput(text[i], true, true);
                 inputs[2*i+1] = getInput(text[i], false, true);
             }
-            if (SendInput(2*(uint)len, inputs, Marshal.SizeOf(typeof(INPUT))) == 0)
+            uint sent = SendInput(2 * (uint)len, inputs, Marshal.SizeOf(typeof(INPUT)));
+            if (sent != 2 * (uint)len)
                 throw new Win32Exception(Marshal.GetLastWin32Error());
         }
     }
