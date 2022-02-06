@@ -17,19 +17,19 @@ namespace LowLevelControls
         [DllImport("user32.dll")]
         static extern short GetKeyState(int nVirtKey);
 
-        private static INPUT getInput(int key, bool? down)
+        private static INPUT getInput(int key, bool down, bool unicode=false)
         {
             INPUT input = new INPUT
             {
                 type = INPUTTYPE.INPUT_KEYBOARD,
             };
-            if (down == null)
+            if (unicode)
             {
                 input.ki = new KEYBDINPUT
                 {
                     wVk = 0,
                     wScan = (ushort)key,
-                    dwFlags = (uint)KEYEVENTF.UNICODE,
+                    dwFlags = (uint)KEYEVENTF.UNICODE | (uint)(down ? KEYEVENTF.KEYDOWN : KEYEVENTF.KEYUP),
                     time = 0,
                     dwExtraInfo = IntPtr.Zero
                 };
@@ -39,7 +39,7 @@ namespace LowLevelControls
             {
                 wVk = (ushort)key,
                 wScan = 0,
-                dwFlags = (uint)((bool)down ? KEYEVENTF.KEYDOWN : KEYEVENTF.KEYUP),
+                dwFlags = (uint)(down ? KEYEVENTF.KEYDOWN : KEYEVENTF.KEYUP),
                 time = 0,
                 dwExtraInfo = IntPtr.Zero
             };
@@ -79,18 +79,21 @@ namespace LowLevelControls
 
         public static void SendChar(char c)
         {
-            INPUT[] inputs = { getInput(c, null) };
-            if (SendInput(1, inputs, Marshal.SizeOf(typeof(INPUT))) == 0)
+            INPUT[] inputs = { getInput(c, true, true), getInput(c, false, true) };
+            if (SendInput(2, inputs, Marshal.SizeOf(typeof(INPUT))) == 0)
                 throw new Win32Exception(Marshal.GetLastWin32Error());
         }
 
         public static void SendText(String text)
         {
             int len = text.Length;
-            INPUT[] inputs = new INPUT[len];
+            INPUT[] inputs = new INPUT[2 * len];
             for (int i = 0; i < len; i++)
-                inputs[i] = getInput(text[i], null);
-            if (SendInput((uint)len, inputs, Marshal.SizeOf(typeof(INPUT))) == 0)
+            {
+                inputs[2*i] = getInput(text[i], true, true);
+                inputs[2*i+1] = getInput(text[i], false, true);
+            }
+            if (SendInput(2*(uint)len, inputs, Marshal.SizeOf(typeof(INPUT))) == 0)
                 throw new Win32Exception(Marshal.GetLastWin32Error());
         }
     }
