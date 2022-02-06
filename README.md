@@ -1,4 +1,7 @@
 # LowLevelControls
+
+[![](https://img.shields.io/nuget/v/LowLevelControls)](https://www.nuget.org/packages/LowLevelControls/) [![](https://img.shields.io/nuget/dt/LowLevelControls)](https://www.nuget.org/packages/LowLevelControls/)
+
 Helper class for mouse, keyboard and screen controls
 
 ## NuGet: https://www.nuget.org/packages/LowLevelControls/
