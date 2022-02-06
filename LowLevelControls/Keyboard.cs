@@ -25,7 +25,7 @@ namespace LowLevelControls
             };
             if (unicode)
             {
-                input.ki = new KEYBDINPUT
+                input.mkhi.ki = new KEYBDINPUT
                 {
                     wVk = 0,
                     wScan = (ushort)key,
@@ -35,7 +35,7 @@ namespace LowLevelControls
                 };
                 return input;
             }
-            input.ki = new KEYBDINPUT
+            input.mkhi.ki = new KEYBDINPUT
             {
                 wVk = (ushort)key,
                 wScan = 0,

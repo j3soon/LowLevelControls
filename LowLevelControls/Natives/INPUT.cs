@@ -2,26 +2,21 @@
 
 namespace LowLevelControls.Natives
 {
+    // To deal with difference in x86/x64 packing
     [StructLayout(LayoutKind.Explicit)]
-    public struct INPUT
+    public struct MouseKeybdHardwareInputUnion
     {
         [FieldOffset(0)]
+        public MOUSEINPUT mi;
+        [FieldOffset(0)]
+        public KEYBDINPUT ki;
+        [FieldOffset(0)]
+        public HARDWAREINPUT hi;
+    }
+    [StructLayout(LayoutKind.Sequential)]
+    public struct INPUT
+    {
         public INPUTTYPE type;
-        // Deal with difference in x86/x64 packing
-        #if WIN64
-        [FieldOffset(8)]
-        public MOUSEINPUT mi;
-        [FieldOffset(8)]
-        public KEYBDINPUT ki;
-        [FieldOffset(8)]
-        public HARDWAREINPUT hi;
-        #else
-        [FieldOffset(4)]
-        public MOUSEINPUT mi;
-        [FieldOffset(4)]
-        public KEYBDINPUT ki;
-        [FieldOffset(4)]
-        public HARDWAREINPUT hi;
-        #endif
+        public MouseKeybdHardwareInputUnion mkhi;
     }
 }
